@@ -2,7 +2,7 @@
    whatsapp: your number with country code, digits only (e.g. "94771234567").
    Prices are PLACEHOLDERS: replace with your real prices.
    Real photos: put files in /images and add img:"images/name.jpg" to a product. */
-const CONFIG={whatsapp:""};
+const CONFIG={whatsapp:"94763621801"};
 const P=[
  {id:1,name:"Christmas Bauble Set",cat:"Christmas",price:850,badge:"Seasonal",kind:"bauble",desc:"Shiny baubles to bring color and sparkle to your tree.",tags:["Set of 12","Fragile"],colors:[["Red","#A83232"],["Forest Green","#063D2A"],["Gold","#E0A91B"]]},
  {id:2,name:"Warm Fairy Lights",cat:"Christmas",price:1200,badge:"Best Seller",kind:"lights",desc:"A soft, warm glow for your tree, window or wall.",tags:["10 m string","Warm white"],colors:[["Forest Green","#063D2A"],["Gold","#E0A91B"],["Cream","#CDBF9C"]]},
