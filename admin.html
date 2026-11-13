@@ -67,14 +67,28 @@ main{max-width:720px;margin:auto;padding:16px}
 <body>
 <header><h1>LUMINA ADMIN</h1><p>Add products and photos, change prices, and mark items In stock or Out of stock.</p></header>
 <main>
- <div class="help"><b>How it works:</b> make your changes here, tap <b>Save changes</b>, then upload the downloaded files to GitHub (steps appear after you save). Customers see the update in 1–2 minutes.</div>
+ <div class="help" id="helpbox"></div>
  <div class="top"><input id="q" type="search" placeholder="Search products" aria-label="Search products"><button class="btn gold" id="new">+ Add</button></div>
  <div id="list"></div>
  <div class="cats"><label for="cats">Categories (separate with commas)</label><input id="cats"></div>
  <div id="done"></div>
 </main>
-<div class="bar"><button class="btn" id="save">Save changes</button></div>
+<div class="bar"><button class="btn" id="save">Publish to website</button><button class="btn line" id="zipbtn" style="flex:0 0 auto">Zip</button></div>
 <section class="dlg" id="dlg" hidden aria-label="Edit product"></section>
+<section class="dlg" id="set" hidden aria-label="Connect to GitHub">
+ <h2>Connect once</h2>
+ <div class="help"><b>One-time setup (about 3 minutes)</b><ol style="padding-left:18px">
+ <li>Open <b>github.com</b> → your profile picture → <b>Settings</b>.</li>
+ <li>At the bottom: <b>Developer settings → Personal access tokens → Fine-grained tokens → Generate new token</b>.</li>
+ <li>Name: <b>lumina</b>. Expiration: <b>1 year</b>. Repository access: <b>Only select repositories</b> → choose your website repository.</li>
+ <li><b>Repository permissions → Contents → Read and write</b>. Then <b>Generate token</b>.</li>
+ <li>Copy the token (starts with <b>github_pat_</b>) and paste it below.</li></ol>
+ The token stays only on this phone. Never share it.</div>
+ <label class="f">GitHub username<input id="s-owner" autocapitalize="off" autocomplete="off"></label>
+ <label class="f">Repository name<input id="s-repo" autocapitalize="off" autocomplete="off"></label>
+ <label class="f">Token<input id="s-token" type="password" autocapitalize="off" autocomplete="off" placeholder="github_pat_…"></label>
+ <div class="acts"><button class="btn" id="s-ok">Connect</button><button class="btn line" id="s-cancel">Cancel</button><button class="btn danger" id="s-off" hidden>Disconnect</button></div>
+</section>
 <div class="toast" id="toast" role="status"></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 <script>
@@ -133,7 +147,11 @@ document.addEventListener("click",e=>{
  else if(t.closest("[data-done]")){readForm();if(!cur.name){toast("Please enter a product name");return}if(!(+cur.price>=0)||cur.price===""){toast("Please enter a price");return}
   cur.price=+cur.price;const isNew=cur._new;delete cur._new;if(isNew)data.products.push(cur);else data.products[data.products.findIndex(p=>p.id==cur.id)]=cur;
   dirty=true;close();render();toast("Saved. Tap Save changes when you finish.")}
- else if(t.closest("#save"))exportZip()});
+ else if(t.closest("#save"))publish();
+ else if(t.closest("#zipbtn"))exportZip();
+ else if(t.closest("#s-cancel"))closeSet();
+ else if(t.closest("#s-ok"))connect();
+ else if(t.closest("#s-off")){GH={};saveGH();closeSet();help();toast("Disconnected")}});
 document.addEventListener("change",async e=>{
  if(e.target.id==="f-img"){readForm();const list=[...e.target.files];toast("Adding photos…");
   for(const f of list){try{const d=await resize(f),n="images/p"+cur.id+"-"+Date.now().toString(36)+Math.random().toString(36).slice(2,5)+".jpg";files[n]=d;cur.images.push(n)}catch(x){toast("Could not read that photo")}}
@@ -151,6 +169,37 @@ async function exportZip(){
  $("#done").innerHTML=`<div class="done"><b>lumina-update.zip downloaded.</b><ol><li>Unzip it on your phone or computer.</li><li>Open your LUMINA repository on GitHub, then <b>Add file → Upload files</b>.</li><li>Upload <b>products.json</b> and the <b>images</b> folder (if any), then tap <b>Commit changes</b>.</li><li>Wait 1–2 minutes, then refresh your website.</li></ol></div>`;
  dirty=false;$("#done").scrollIntoView({behavior:"smooth"})}
 addEventListener("beforeunload",e=>{if(dirty){e.preventDefault();e.returnValue=""}});
+let GH={};try{GH=JSON.parse(localStorage.getItem("lumina-gh")||"{}")}catch(e){}
+const saveGH=()=>{try{localStorage.setItem("lumina-gh",JSON.stringify(GH))}catch(e){}};
+const pushed=new Set();
+function guess(){const h=location.hostname;if(h.endsWith(".github.io")){const seg=location.pathname.split("/")[1];return{owner:h.split(".")[0],repo:seg&&!seg.endsWith(".html")?seg:h}}return{owner:"",repo:""}}
+function help(){$("#helpbox").innerHTML=GH.token?`<b>Connected:</b> ${esc(GH.owner)}/${esc(GH.repo)}. Make your changes, then tap <b>Publish to website</b>. Customers see them in 1–2 minutes.`:`<b>First time?</b> Tap <b>Publish to website</b> to connect once. After that, one tap publishes everything. (The <b>Zip</b> button downloads the files instead.)`}
+function openSet(){const g=guess();$("#s-owner").value=GH.owner||g.owner;$("#s-repo").value=GH.repo||g.repo;$("#s-token").value="";$("#s-off").hidden=!GH.token;$("#set").hidden=false;$("#set").scrollTop=0;document.body.style.overflow="hidden"}
+function closeSet(){$("#set").hidden=true;document.body.style.overflow=""}
+const api=(p,o={})=>fetch("https://api.github.com/repos/"+GH.owner+"/"+GH.repo+p,Object.assign({},o,{headers:{Accept:"application/vnd.github+json",Authorization:"Bearer "+GH.token,"Content-Type":"application/json"}}));
+async function connect(){
+ const o=$("#s-owner").value.trim(),r=$("#s-repo").value.trim(),t=$("#s-token").value.trim()||GH.token;
+ if(!o||!r||!t){toast("Please fill all three boxes");return}
+ GH={owner:o,repo:r,token:t};toast("Checking…");
+ try{const res=await api("");if(res.status===401){GH={};toast("Token not accepted. Please copy it again.");return}if(!res.ok){GH={};toast("Repository not found. Check the username and name.");return}
+  GH.branch=(await res.json()).default_branch||"main";saveGH();closeSet();help();toast("Connected. Tap Publish.")}
+ catch(e){GH={};toast("No internet connection")}}
+const b64=s=>btoa(unescape(encodeURIComponent(s)));
+async function put(path,content,msg){
+ let sha;const g=await api("/contents/"+path+"?ref="+GH.branch);if(g.ok)sha=(await g.json()).sha;else if(g.status!==404)throw g;
+ const r=await api("/contents/"+path,{method:"PUT",body:JSON.stringify({message:msg,content,branch:GH.branch,sha})});if(!r.ok)throw r}
+let busy=false;
+async function publish(){
+ if(!GH.token){openSet();return}
+ if(busy)return;busy=true;$("#save").disabled=true;
+ data.categories=$("#cats").value.split(",").map(s=>s.trim()).filter(Boolean);
+ try{const used=new Set(data.products.flatMap(p=>p.images||[])),todo=Object.keys(files).filter(n=>used.has(n)&&!pushed.has(n));let i=0;
+  for(const n of todo){toast(`Uploading photo ${++i} of ${todo.length}…`);await put(n,files[n].split(",")[1],"Add product photo");pushed.add(n)}
+  toast("Publishing…");await put("products.json",b64(JSON.stringify(data,null,2)),"Update products");dirty=false;
+  $("#done").innerHTML='<div class="done"><b>Published!</b> Your website will show the changes in 1–2 minutes. Refresh the shop page to check.</div>';toast("Published");$("#done").scrollIntoView({behavior:"smooth"})}
+ catch(r){const s=r&&r.status;toast(s===401?"Token expired. Tap Publish to reconnect.":s===403||s===404?"No permission. Check the token has Contents: Read and write.":"Could not publish. Check your internet and try again.");if(s===401){GH.token="";saveGH();help()}}
+ busy=false;$("#save").disabled=false}
+help();
 init();
 </script>
 </body>
