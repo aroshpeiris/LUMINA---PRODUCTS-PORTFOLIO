@@ -1,0 +1,243 @@
+{
+  "categories": [
+    "Christmas",
+    "Gifts",
+    "Home Décor",
+    "Celebrations",
+    "Faith-Inspired"
+  ],
+  "products": [
+    {
+      "id": 1,
+      "name": "Christmas Bauble Set",
+      "cat": "Christmas",
+      "price": 850,
+      "stock": "in",
+      "badge": "Seasonal",
+      "kind": "bauble",
+      "desc": "Shiny baubles to bring color and sparkle to your tree.",
+      "tags": [
+        "Set of 12",
+        "Fragile"
+      ],
+      "images": [],
+      "colors": [
+        [
+          "Red",
+          "#A83232"
+        ],
+        [
+          "Forest Green",
+          "#063D2A"
+        ],
+        [
+          "Gold",
+          "#E0A91B"
+        ]
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Warm Fairy Lights",
+      "cat": "Christmas",
+      "price": 1200,
+      "stock": "in",
+      "badge": "Best Seller",
+      "kind": "lights",
+      "desc": "A soft, warm glow for your tree, window or wall.",
+      "tags": [
+        "10 m string",
+        "Warm white"
+      ],
+      "images": [],
+      "colors": [
+        [
+          "Forest Green",
+          "#063D2A"
+        ],
+        [
+          "Gold",
+          "#E0A91B"
+        ],
+        [
+          "Cream",
+          "#CDBF9C"
+        ]
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Signature Gift Box",
+      "cat": "Gifts",
+      "price": 2400,
+      "stock": "in",
+      "badge": "Gift Pick",
+      "kind": "gift",
+      "desc": "A beautifully wrapped keepsake for birthdays, anniversaries and thank-yous.",
+      "tags": [
+        "Gift-ready",
+        "Ribbon"
+      ],
+      "images": [],
+      "colors": [
+        [
+          "Forest Green",
+          "#063D2A"
+        ],
+        [
+          "Cream",
+          "#CDBF9C"
+        ],
+        [
+          "Gold",
+          "#E0A91B"
+        ]
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Pillar Candle Set",
+      "cat": "Home Décor",
+      "price": 1850,
+      "stock": "in",
+      "badge": "Signature",
+      "kind": "candle",
+      "desc": "Soft, calming light for tables, shelves and quiet evenings.",
+      "tags": [
+        "Set of 3",
+        "Long burn"
+      ],
+      "images": [],
+      "colors": [
+        [
+          "Cream",
+          "#CDBF9C"
+        ],
+        [
+          "Gold",
+          "#E0A91B"
+        ],
+        [
+          "Forest Green",
+          "#2F6B4E"
+        ]
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Decorative Lantern",
+      "cat": "Home Décor",
+      "price": 1450,
+      "stock": "in",
+      "badge": "New",
+      "kind": "lantern",
+      "desc": "A glowing lantern for windows, tables and entryways.",
+      "tags": [
+        "Glass panels",
+        "Warm glow"
+      ],
+      "images": [],
+      "colors": [
+        [
+          "Gold",
+          "#E0A91B"
+        ],
+        [
+          "Charcoal",
+          "#242424"
+        ],
+        [
+          "Forest Green",
+          "#2F6B4E"
+        ]
+      ]
+    },
+    {
+      "id": 6,
+      "name": "Celebration Centerpiece",
+      "cat": "Celebrations",
+      "price": 2750,
+      "stock": "in",
+      "badge": "Premium",
+      "kind": "vase",
+      "desc": "A refined table centerpiece for birthdays, anniversaries and family gatherings.",
+      "tags": [
+        "Table décor",
+        "Statement"
+      ],
+      "images": [],
+      "colors": [
+        [
+          "Cream",
+          "#CDBF9C"
+        ],
+        [
+          "Forest Green",
+          "#2F6B4E"
+        ],
+        [
+          "Gold",
+          "#E0A91B"
+        ]
+      ]
+    },
+    {
+      "id": 7,
+      "name": "Wall Cross",
+      "cat": "Faith-Inspired",
+      "price": 3200,
+      "stock": "in",
+      "badge": "Faith-Inspired",
+      "kind": "cross",
+      "desc": "An elegant cross for a prayer corner, hallway or bedroom wall.",
+      "tags": [
+        "Wall mount",
+        "Elegant"
+      ],
+      "images": [],
+      "colors": [
+        [
+          "Gold",
+          "#E0A91B"
+        ],
+        [
+          "Walnut",
+          "#6B4A32"
+        ],
+        [
+          "Cream",
+          "#CDBF9C"
+        ]
+      ]
+    },
+    {
+      "id": 8,
+      "name": "Star of Hope Ornament",
+      "cat": "Faith-Inspired",
+      "price": 950,
+      "stock": "in",
+      "badge": "Faith-Inspired",
+      "kind": "star",
+      "desc": "A shining star to hang at home in seasons of light and hope.",
+      "tags": [
+        "Hanging",
+        "Reusable"
+      ],
+      "images": [],
+      "colors": [
+        [
+          "Gold",
+          "#E0A91B"
+        ],
+        [
+          "Cream",
+          "#CDBF9C"
+        ],
+        [
+          "Forest Green",
+          "#2F6B4E"
+        ]
+      ]
+    }
+  ]
+}

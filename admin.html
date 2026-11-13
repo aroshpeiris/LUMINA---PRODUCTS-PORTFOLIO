@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>LUMINA Admin</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Montserrat:wght@400;500;600;700&display=swap">
+<style>
+:root{--g:#063D2A;--gold:#FFC928;--bg:#F5EFDF;--card:#FFFBF0;--line:#E4DAC4;--mute:#6d6a62;--ink:#242424;--red:#a23b2c}
+*{box-sizing:border-box;margin:0}
+body{font-family:Montserrat,system-ui,sans-serif;background:var(--bg);color:var(--ink);padding-bottom:110px}
+button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;touch-action:manipulation}
+input,select,textarea{font:inherit;font-size:16px;color:inherit;width:100%;border:1.5px solid var(--line);border-radius:14px;padding:12px 14px;background:#fff}
+textarea{resize:vertical}
+:focus-visible{outline:3px solid var(--gold);outline-offset:1px}
+header{background:var(--g);color:#fff;padding:calc(env(safe-area-inset-top,0px) + 18px) 18px 20px;border-radius:0 0 26px 26px}
+header h1{font-family:"Cormorant Garamond",serif;font-size:28px;letter-spacing:.14em;color:var(--gold)}
+header p{font-size:13px;opacity:.85;margin-top:4px;line-height:1.5}
+main{max-width:720px;margin:auto;padding:16px}
+.top{display:flex;gap:10px;margin-bottom:12px}
+.btn{height:50px;border-radius:99px;padding:0 22px;font-weight:600;font-size:15px;background:var(--g);color:#fff;white-space:nowrap}
+.btn.gold{background:var(--gold);color:var(--g)}
+.btn.line{background:#fff;border:1.5px solid var(--line);color:var(--ink)}
+.btn.danger{background:#fff;border:1.5px solid #e2c3bd;color:var(--red)}
+.top input{flex:1}
+.row{display:flex;gap:12px;align-items:center;background:var(--card);border-radius:20px;padding:10px;margin-bottom:10px;box-shadow:0 6px 16px -12px rgba(6,61,42,.5)}
+.th{width:62px;height:62px;border-radius:14px;background:linear-gradient(160deg,#1d4a38,#063D2A);flex:none;overflow:hidden;display:grid;place-items:center;color:#fff;font-size:10px;text-align:center}
+.th img{width:100%;height:100%;object-fit:cover}
+.info{flex:1;min-width:0}
+.info b{display:block;font-size:14.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.info small{color:var(--mute);font-size:12px}
+.sw{display:flex;align-items:center;gap:8px;margin-top:6px;font-size:12.5px;font-weight:600}
+.tg{position:relative;width:50px;height:30px;border-radius:30px;background:#c9c3b0;transition:.2s;flex:none}
+.tg::after{content:"";position:absolute;top:3px;left:3px;width:24px;height:24px;border-radius:50%;background:#fff;transition:.2s}
+.tg[aria-pressed=true]{background:#2d8a5b}.tg[aria-pressed=true]::after{left:23px}
+.ed{height:44px;padding:0 16px;border-radius:99px;background:#fff;border:1.5px solid var(--line);font-weight:600;font-size:13px}
+.bar{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--line);padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px));display:flex;gap:10px;justify-content:center;z-index:5}
+.bar .btn{flex:1;max-width:340px}
+.help{background:#fff;border-radius:18px;padding:14px 16px;font-size:13px;line-height:1.7;margin:14px 0}
+.help b{color:var(--g)}
+.cats{margin-top:18px}.cats label{font-size:13px;font-weight:600;color:var(--g);display:block;margin-bottom:6px}
+.dlg{position:fixed;inset:0;z-index:20;background:var(--bg);overflow-y:auto;padding:calc(env(safe-area-inset-top,0px) + 12px) 16px 40px}
+.dlg[hidden]{display:none}
+.dlg h2{font-family:"Cormorant Garamond",serif;font-size:26px;color:var(--g);margin:6px 0 14px}
+.f{display:block;margin-bottom:14px;font-size:13px;font-weight:600;color:var(--g)}
+.f input,.f select,.f textarea{margin-top:6px;font-weight:400;color:var(--ink)}
+.f small{display:block;font-weight:400;color:var(--mute);margin-top:4px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.stock{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:6px 0 14px}
+.stock button{height:50px;border-radius:16px;border:2px solid var(--line);background:#fff;font-weight:600}
+.stock button[aria-pressed=true].in{background:#dcebe0;border-color:#2d8a5b;color:#063D2A}
+.stock button[aria-pressed=true].no{background:#eadcd8;border-color:#c0705f;color:#7a2a1f}
+.ph{display:flex;gap:10px;flex-wrap:wrap;margin:6px 0 10px}
+.ph div{position:relative;width:88px;height:88px;border-radius:14px;overflow:hidden;border:2px solid var(--line)}
+.ph div.cover{border-color:var(--gold)}
+.ph img{width:100%;height:100%;object-fit:cover}
+.ph .x{position:absolute;top:3px;right:3px;width:28px;height:28px;border-radius:50%;background:rgba(0,0,0,.65);color:#fff}
+.ph .mk{position:absolute;left:0;right:0;bottom:0;background:rgba(6,61,42,.85);color:#fff;font-size:10.5px;padding:4px 0}
+.add{height:88px;width:88px;border:2px dashed var(--g);border-radius:14px;color:var(--g);font-size:13px;font-weight:600;display:grid;place-items:center;text-align:center;background:#fff}
+.acts{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap}.acts .btn{flex:1;min-width:130px}
+.done{background:#dcebe0;border-radius:18px;padding:14px 16px;font-size:13.5px;line-height:1.8;margin-top:12px}
+.done ol{padding-left:18px}
+.toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:var(--g);color:#fff;padding:12px 20px;border-radius:99px;font-size:14px;z-index:40;opacity:0;pointer-events:none;transition:.25s}.toast.on{opacity:1}
+</style>
+</head>
+<body>
+<header><h1>LUMINA ADMIN</h1><p>Add products and photos, change prices, and mark items In stock or Out of stock.</p></header>
+<main>
+ <div class="help"><b>How it works:</b> make your changes here, tap <b>Save changes</b>, then upload the downloaded files to GitHub (steps appear after you save). Customers see the update in 1–2 minutes.</div>
+ <div class="top"><input id="q" type="search" placeholder="Search products" aria-label="Search products"><button class="btn gold" id="new">+ Add</button></div>
+ <div id="list"></div>
+ <div class="cats"><label for="cats">Categories (separate with commas)</label><input id="cats"></div>
+ <div id="done"></div>
+</main>
+<div class="bar"><button class="btn" id="save">Save changes</button></div>
+<section class="dlg" id="dlg" hidden aria-label="Edit product"></section>
+<div class="toast" id="toast" role="status"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script>
+const $=s=>document.querySelector(s);
+const esc=s=>String(s==null?"":s).replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]));
+let data={categories:[],products:[]},files={},cur=null,dirty=false;
+const toast=m=>{const t=$("#toast");t.textContent=m;t.classList.add("on");clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove("on"),2200)};
+const src=p=>files[p]||p;
+async function init(){
+ try{const r=await fetch("products.json?v="+Date.now(),{cache:"no-store"});data=await r.json()}catch(e){toast("Could not load products.json")}
+ data.products=data.products||[];data.categories=data.categories||[];
+ $("#cats").value=data.categories.join(", ");render()}
+function render(){
+ const q=$("#q").value.toLowerCase();
+ $("#list").innerHTML=data.products.filter(p=>(p.name+p.cat).toLowerCase().includes(q)).map(p=>{const o=p.stock==="out",im=(p.images||[])[0];
+ return`<div class="row"><div class="th">${im?`<img src="${esc(src(im))}" alt="">`:"No photo"}</div>
+ <div class="info"><b>${esc(p.name)}</b><small>${esc(p.cat)} · Rs. ${(+p.price||0).toLocaleString("en-LK")}</small>
+ <div class="sw"><button class="tg" data-tg="${p.id}" aria-pressed="${!o}" aria-label="In stock"></button><span>${o?"Out of stock":"In stock"}</span></div></div>
+ <button class="ed" data-ed="${p.id}">Edit</button></div>`}).join("")||'<p style="text-align:center;color:var(--mute);padding:30px">No products yet. Tap + Add.</p>'}
+const byId=id=>data.products.find(p=>p.id==id);
+function openEdit(id){
+ const isNew=!id;cur=isNew?{id:Math.max(0,...data.products.map(p=>+p.id))+1,name:"",cat:data.categories[0]||"",price:"",stock:"in",badge:"",desc:"",tags:[],images:[],colors:[]}:JSON.parse(JSON.stringify(byId(id)));cur._new=isNew;
+ const d=$("#dlg");d.hidden=false;d.scrollTop=0;document.body.style.overflow="hidden";drawEdit()}
+function drawEdit(){
+ const p=cur,cats=[...new Set([...data.categories,p.cat].filter(Boolean))];
+ $("#dlg").innerHTML=`<h2>${p._new?"Add product":"Edit product"}</h2>
+ <label class="f">Product name<input id="f-name" value="${esc(p.name)}" placeholder="e.g. Pillar Candle Set"></label>
+ <div class="two"><label class="f">Price (Rs.)<input id="f-price" type="number" inputmode="numeric" min="0" value="${esc(p.price)}" placeholder="1850"></label>
+ <label class="f">Category<select id="f-cat">${cats.map(c=>`<option${c===p.cat?" selected":""}>${esc(c)}</option>`).join("")}</select></label></div>
+ <div class="f" style="margin-bottom:4px">Stock</div><div class="stock"><button class="in" data-st="in" aria-pressed="${p.stock!=="out"}">In stock</button><button class="no" data-st="out" aria-pressed="${p.stock==="out"}">Out of stock</button></div>
+ <div class="f" style="margin-bottom:0">Photos <small>The first photo is the main one. Use clear photos of the real product.</small></div>
+ <div class="ph">${p.images.map((s,k)=>`<div class="${k?"":"cover"}"><img src="${esc(src(s))}" alt=""><button class="x" data-rm="${k}" aria-label="Remove photo">×</button>${k?`<button class="mk" data-cv="${k}">Make main</button>`:`<span class="mk">Main</span>`}</div>`).join("")}
+ <label class="add">+ Photo<input id="f-img" type="file" accept="image/*" multiple hidden></label></div>
+ <label class="f">Description<textarea id="f-desc" rows="3" placeholder="What is it, size, material…">${esc(p.desc)}</textarea></label>
+ <label class="f">Small tags<input id="f-tags" value="${esc((p.tags||[]).join(", "))}" placeholder="Set of 3, Long burn"><small>Separate with commas.</small></label>
+ <label class="f">Options (optional)<input id="f-opts" value="${esc((p.colors||[]).map(c=>c[0]).filter(Boolean).join(", "))}" placeholder="Red, Gold, Green"><small>Colours or sizes the customer can choose. Leave empty if none.</small></label>
+ <label class="f">Label on photo (optional)<input id="f-badge" value="${esc(p.badge)}" placeholder="New, Best Seller, Gift Pick"></label>
+ <div class="acts"><button class="btn" data-done>Done</button><button class="btn line" data-cancel>Cancel</button>${p._new?"":`<button class="btn danger" data-del>Delete</button>`}</div>`}
+function readForm(){
+ if(!$("#f-name"))return;const p=cur;
+ p.name=$("#f-name").value.trim();p.price=$("#f-price").value;p.cat=$("#f-cat").value;p.desc=$("#f-desc").value.trim();p.badge=$("#f-badge").value.trim();
+ p.tags=$("#f-tags").value.split(",").map(s=>s.trim()).filter(Boolean);
+ const old=p.colors||[];p.colors=$("#f-opts").value.split(",").map(s=>s.trim()).filter(Boolean).map(n=>old.find(c=>c[0]===n)||[n,null])}
+function close(){$("#dlg").hidden=true;document.body.style.overflow="";cur=null}
+function resize(file){return new Promise((res,rej)=>{const u=URL.createObjectURL(file),im=new Image();im.onload=()=>{const s=Math.min(1,1000/Math.max(im.width,im.height)),c=document.createElement("canvas");c.width=Math.round(im.width*s);c.height=Math.round(im.height*s);c.getContext("2d").drawImage(im,0,0,c.width,c.height);URL.revokeObjectURL(u);res(c.toDataURL("image/jpeg",.85))};im.onerror=rej;im.src=u})}
+document.addEventListener("click",e=>{
+ const t=e.target;let b;
+ if(b=t.closest("[data-tg]")){const p=byId(b.dataset.tg);p.stock=p.stock==="out"?"in":"out";dirty=true;render();toast(p.name+": "+(p.stock==="out"?"Out of stock":"In stock"))}
+ else if(b=t.closest("[data-ed]"))openEdit(b.dataset.ed);
+ else if(t.closest("#new"))openEdit(0);
+ else if(b=t.closest("[data-st]")){readForm();cur.stock=b.dataset.st;drawEdit()}
+ else if(b=t.closest("[data-rm]")){readForm();cur.images.splice(+b.dataset.rm,1);drawEdit()}
+ else if(b=t.closest("[data-cv]")){readForm();const k=+b.dataset.cv;cur.images.unshift(cur.images.splice(k,1)[0]);drawEdit()}
+ else if(t.closest("[data-cancel]"))close();
+ else if(t.closest("[data-del]")){if(confirm("Delete this product?")){data.products=data.products.filter(p=>p.id!=cur.id);dirty=true;close();render();toast("Deleted")}}
+ else if(t.closest("[data-done]")){readForm();if(!cur.name){toast("Please enter a product name");return}if(!(+cur.price>=0)||cur.price===""){toast("Please enter a price");return}
+  cur.price=+cur.price;const isNew=cur._new;delete cur._new;if(isNew)data.products.push(cur);else data.products[data.products.findIndex(p=>p.id==cur.id)]=cur;
+  dirty=true;close();render();toast("Saved. Tap Save changes when you finish.")}
+ else if(t.closest("#save"))exportZip()});
+document.addEventListener("change",async e=>{
+ if(e.target.id==="f-img"){readForm();const list=[...e.target.files];toast("Adding photos…");
+  for(const f of list){try{const d=await resize(f),n="images/p"+cur.id+"-"+Date.now().toString(36)+Math.random().toString(36).slice(2,5)+".jpg";files[n]=d;cur.images.push(n)}catch(x){toast("Could not read that photo")}}
+  drawEdit()}});
+$("#q").addEventListener("input",render);
+$("#cats").addEventListener("change",()=>{data.categories=$("#cats").value.split(",").map(s=>s.trim()).filter(Boolean);dirty=true});
+async function exportZip(){
+ data.categories=$("#cats").value.split(",").map(s=>s.trim()).filter(Boolean);
+ if(typeof JSZip==="undefined"){toast("Please check your internet and try again");return}
+ const z=new JSZip(),used=new Set(data.products.flatMap(p=>p.images||[]));
+ z.file("products.json",JSON.stringify(data,null,2));
+ Object.keys(files).forEach(n=>{if(used.has(n))z.file(n,files[n].split(",")[1],{base64:true})});
+ const blob=await z.generateAsync({type:"blob"}),a=document.createElement("a");
+ a.href=URL.createObjectURL(blob);a.download="lumina-update.zip";document.body.appendChild(a);a.click();a.remove();
+ $("#done").innerHTML=`<div class="done"><b>lumina-update.zip downloaded.</b><ol><li>Unzip it on your phone or computer.</li><li>Open your LUMINA repository on GitHub, then <b>Add file → Upload files</b>.</li><li>Upload <b>products.json</b> and the <b>images</b> folder (if any), then tap <b>Commit changes</b>.</li><li>Wait 1–2 minutes, then refresh your website.</li></ol></div>`;
+ dirty=false;$("#done").scrollIntoView({behavior:"smooth"})}
+addEventListener("beforeunload",e=>{if(dirty){e.preventDefault();e.returnValue=""}});
+init();
+</script>
+</body>
+</html>
