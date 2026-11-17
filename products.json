@@ -12,7 +12,7 @@
       "name": "Warm Fairy Lights",
       "cat": "Christmas",
       "price": 1200,
-      "stock": "in",
+      "stock": "out",
       "badge": "Best Seller",
       "kind": "lights",
       "desc": "A soft, warm glow for your tree, window or wall.",
@@ -41,7 +41,7 @@
       "name": "Signature Gift Box",
       "cat": "Gifts",
       "price": 2400,
-      "stock": "in",
+      "stock": "out",
       "badge": "Gift Pick",
       "kind": "gift",
       "desc": "A beautifully wrapped keepsake for birthdays, anniversaries and thank-yous.",
@@ -70,7 +70,7 @@
       "name": "Pillar Candle Set",
       "cat": "Home Décor",
       "price": 1850,
-      "stock": "in",
+      "stock": "out",
       "badge": "Signature",
       "kind": "candle",
       "desc": "Soft, calming light for tables, shelves and quiet evenings.",
@@ -99,7 +99,7 @@
       "name": "Decorative Lantern",
       "cat": "Home Décor",
       "price": 1450,
-      "stock": "in",
+      "stock": "out",
       "badge": "New",
       "kind": "lantern",
       "desc": "A glowing lantern for windows, tables and entryways.",
@@ -128,7 +128,7 @@
       "name": "Celebration Centerpiece",
       "cat": "Celebrations",
       "price": 2750,
-      "stock": "in",
+      "stock": "out",
       "badge": "Premium",
       "kind": "vase",
       "desc": "A refined table centerpiece for birthdays, anniversaries and family gatherings.",
@@ -207,6 +207,33 @@
         [
           "Forest Green",
           "#2F6B4E"
+        ]
+      ]
+    },
+    {
+      "id": 9,
+      "name": "Britex 100L LED Christmas String Lights (White Wire)",
+      "cat": "Christmas",
+      "price": 550,
+      "stock": "in",
+      "badge": "New Arrival",
+      "desc": "Bring festive warmth to your home with the Britex 100L LED Christmas String Lights. Featuring 100 bright, energy-efficient LED bulbs on a clean white insulated wire, this set includes a built-in controller with multiple flashing and steady glow modes plus a safe UK 3-pin plug. Available in both cozy Warm White and bright Cool White light options. Ideal for Christmas trees, bedrooms, parties, weddings, and indoor decorative backdrops.",
+      "tags": [
+        "100 LED",
+        "Fairy Lights",
+        "Christmas Decor",
+        "Indoor Lighting",
+        "White Wire"
+      ],
+      "images": [],
+      "colors": [
+        [
+          "Warm White",
+          null
+        ],
+        [
+          "White",
+          null
         ]
       ]
     }
