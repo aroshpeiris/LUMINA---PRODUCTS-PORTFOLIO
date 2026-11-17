@@ -128,7 +128,7 @@
       "name": "Celebration Centerpiece",
       "cat": "Celebrations",
       "price": 2750,
-      "stock": "out",
+      "stock": "in",
       "badge": "Premium",
       "kind": "vase",
       "desc": "A refined table centerpiece for birthdays, anniversaries and family gatherings.",
