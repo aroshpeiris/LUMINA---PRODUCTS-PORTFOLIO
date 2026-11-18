@@ -51,7 +51,12 @@
         "Indoor Lighting",
         "White Wire"
       ],
-      "images": [],
+      "images": [
+        "images/p9-mwmbqxd70qy.jpg",
+        "images/p9-mwmbqxexoco.jpg",
+        "images/p9-mwmbqxgm79t.jpg",
+        "images/p9-mwmbqxihq1j.jpg"
+      ],
       "colors": [
         [
           "Warm White",
